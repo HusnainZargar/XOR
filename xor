@@ -1,0 +1,114 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+char* Xor(char[], char[]);
+char* bytesToHex(const unsigned char*, int);
+int hexToBytes(const char*, unsigned char*);
+
+int main() {
+    int choice;
+    char ch;
+    int size = 256;
+    char message[size];
+    char key[size];
+
+    do {
+        printf("\n\t1- Encrypt Using XOR");
+        printf("\n\t2- Decrypt Using XOR");
+        printf("\n Enter: ");
+        scanf("%d", &choice);
+        getchar();
+
+        switch (choice) {
+            case 1:
+                printf("\n\t------------ XOR Encryptor ------------");
+                printf("\n\tEnter Message: ");
+                fgets(message, sizeof(message), stdin);
+                message[strcspn(message, "\n")] = 0; 
+
+
+                if (strlen(message) > size) {
+                    printf("\n ERROR: Message Length Exceeded!");
+                } else {
+                    printf("\n\tEnter KEY: ");
+                    scanf("%255s", key);
+
+                    if (strlen(key) > size) {
+                        printf("\n ERROR: KEY Length Exceeded!");
+                    } else {
+                        char* encrypted = Xor(message, key);
+                        char* hex = bytesToHex((unsigned char*)encrypted, strlen(message));
+                        printf("\n\tXOR Encrypted (Hex): %s", hex);
+                        free(hex); 
+                    }
+                }
+                break;
+
+            case 2:
+                printf("\n\t------------ XOR Decryptor ------------");
+                printf("\n\tEnter Ciphertext (Hex): ");
+                fgets(message, sizeof(message), stdin);
+                message[strcspn(message, "\n")] = 0; 
+
+
+                if (strlen(message) > size) {
+                    printf("\n ERROR: Cipher Length Exceeded!");
+                } else {
+                    printf("\n\tEnter KEY: ");
+                    scanf("%255s", key);
+
+                    unsigned char bytes[256];
+                    int bytesLen = hexToBytes(message, bytes);
+
+                    char* decrypted = Xor((char*)bytes, key);
+                    printf("\n\tXOR Decrypted: %s", decrypted);
+                }
+                break;
+
+            default:
+                printf("\n Invalid Choice! Try again.");
+                break;
+        }
+
+        printf("\n Continue (Y/N): ");
+        getchar(); 
+        scanf("%c", &ch);
+
+    } while (ch == 'Y' || ch == 'y');
+
+    return 0;
+}
+
+// XOR function
+char* Xor(char message[], char key[]) {
+    static char result[256];
+    int msgLen = strlen(message);
+    int keyLen = strlen(key);
+
+    for (int i = 0; i < msgLen; i++) {
+        result[i] = message[i] ^ key[i % keyLen];
+    }
+    result[msgLen] = '\0';
+    return result;
+}
+
+// Convert bytes → hex string
+char* bytesToHex(const unsigned char *bytes, int len) {
+    char *hexOut = malloc(len * 2 + 1);  
+    for (int i = 0; i < len; i++)
+        sprintf(hexOut + i * 2, "%02X", bytes[i]); 
+    hexOut[len * 2] = '\0';
+    return hexOut;
+}
+
+// Convert hex string → bytes
+int hexToBytes(const char *hex, unsigned char *bytesOut) {
+    int len = strlen(hex);
+    if (len % 2 != 0) return -1; 
+
+    for (int i = 0; i < len / 2; i++)
+        sscanf(hex + 2 * i, "%2hhx", &bytesOut[i]);
+    bytesOut[len / 2] = '\0'; 
+    return len / 2;
+}
