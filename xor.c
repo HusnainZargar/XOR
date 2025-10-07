@@ -1,3 +1,5 @@
+/* XOR Encryptor coded By Muhammad Husnain Zargar */
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
