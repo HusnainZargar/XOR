@@ -1,4 +1,9 @@
-/* XOR Encryptor coded By Muhammad Husnain Zargar */
+/*
+ * Project: XOR Encryptor
+ * Coded by: Muhammad Husnain Zargar
+ * Email: info@hackwithhusnain.com
+ * Purpose: Encrypts and decrypts text using XOR
+ */
 
 #include <stdio.h>
 #include <string.h>
