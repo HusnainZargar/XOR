@@ -42,9 +42,13 @@ gcc xor.c -o Xor-Encryptor
 
 ---
 
-##📌 Usage
+## 📌 Usage
+```
 ./Xor-Encryptor -e -k <KEY> -f <FILE>   # Encrypt
+```
+```
 ./Xor-Encryptor -d -k <KEY> -f <FILE>   # Decrypt
+```
 
 ---
 
