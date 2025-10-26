@@ -73,6 +73,7 @@ Use responsibly ✅
 ## 👨‍💻 Author
 
 Muhammad Husnain Zargar
+
 Version: 2.0.0
 
 ---
