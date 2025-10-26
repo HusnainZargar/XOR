@@ -70,3 +70,9 @@ Use responsibly ✅
 
 Muhammad Husnain Zargar
 Version: 2.0.0
+
+---
+
+⭐ Like this project?
+
+Give it a star ⭐ on GitHub to support development!
